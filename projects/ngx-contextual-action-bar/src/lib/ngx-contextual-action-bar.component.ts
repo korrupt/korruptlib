@@ -37,7 +37,7 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
   public button$!: Observable<[string, string]>;
 
   constructor(
-    private store: Store,
+    // private store: Store,
     private service: ContextualActionBarService
   ) {
     
@@ -48,7 +48,7 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.layer$ = this.store.pipe(select(latest, {group: this.group}))
+    this.layer$ = this.service.latest(this.group);
     this.nomargin$ = this.layer$.pipe(map(e => e?.image));
     this.button$ = this.layer$.pipe(
       startWith(undefined),

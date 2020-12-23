@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:ngx-contextual-action-bar": "ng build ngx-contextual-action-bar && npm i dist/ngx-contextual-action-bar --save-optional"
+    "build:action-bar": "ng build ngx-contextual-action-bar && npm i dist/ngx-contextual-action-bar --save-optional"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +28,7 @@
     "@types/uuid": "^8.3.0",
     "arr-xor": "^1.0.1",
     "rxjs": "~6.6.0",
+    "rxjs-marbles": "^6.0.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

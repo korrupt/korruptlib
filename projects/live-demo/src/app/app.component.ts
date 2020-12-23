@@ -18,11 +18,12 @@ export class AppComponent {
     this.layer = service.register({
       background: '#FFF',
       color: '#000',
-      title: 'Live demo',
-      button: 'menu',
+      title: 'Live',
+      button: 'clear',
       image: false,
       actions: [],
       group: 'root'
     })
+
   }
 }

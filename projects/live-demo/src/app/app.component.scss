@@ -2,5 +2,8 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    
+    .ngx-contextual-action-bar {
+        position: relative;
+        height: 100%;
+    }
 }

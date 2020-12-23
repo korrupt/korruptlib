@@ -10,7 +10,7 @@ export class ActionBarLayerRegistration {
         private service: ContextualActionBarService,
         private readonly _layer: ActionBarLayerModel,
     ){
-        this.service.store.dispatch(actions.AddLayer({layer: _layer}));
+        this.service._addLayer(_layer);
     }
 
     public get onButtonClick(): Observable<void> {
@@ -30,7 +30,7 @@ export class ActionBarLayerRegistration {
 
     unregister(){
         const id = this._layer.id;
-        this.service.store.dispatch(actions.RemoveLayer({id}));
+        this.service._removeLayer(id);
     }
 }
 
@@ -42,7 +42,7 @@ export class ActionBarLayerToggleRegistration {
         private _layer: ActionBarLayerModel,
         private _toggleLayer: ActionBarLayerModel
     ) {
-        this.service.store.dispatch(actions.AddLayer({layer: _layer}));
+        this.service._addLayer(_layer)
     }
 
     public get onButtonClick(): Observable<number> {
@@ -69,14 +69,14 @@ export class ActionBarLayerToggleRegistration {
 
     public toggleLayer(): void {
         if (!this.toggled)
-            this.service.store.dispatch(actions.AddLayer({layer: this._toggleLayer}))
+            this.service._addLayer(this._toggleLayer);
         else
-            this.service.store.dispatch(actions.RemoveLayer({id: this._toggleLayer.id}))
+            this.service._removeLayer(this._toggleLayer.id)
         this.toggled = !this.toggled;
     }
 
     public unregister(): void {
-        this.service.store.dispatch(actions.RemoveLayer({id: this._layer.id}));
-        this.service.store.dispatch(actions.RemoveLayer({id: this._toggleLayer.id}));
+        this.service._removeLayer(this._layer.id);
+        this.service._removeLayer(this._toggleLayer.id);
     }
 }

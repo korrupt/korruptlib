@@ -2,8 +2,15 @@
   "name": "ngx-contextual-action-bar",
   "version": "0.0.1",
   "peerDependencies": {
+    "@angular/animations": "~11.0.3",
     "@angular/common": "^11.0.5",
-    "@angular/core": "^11.0.5"
+    "@angular/core": "^11.0.5",
+    "@angular/cdk": "^11.0.3",
+    "@angular/material": "^11.0.3",
+    "@angular/platform-browser": "~11.0.3",
+    "@angular/platform-browser-dynamic": "~11.0.3",
+    "@angular/forms": "~11.0.3",
+    "arr-xor": "^1.0.1"
   },
   "dependencies": {
     "tslib": "^2.0.0"

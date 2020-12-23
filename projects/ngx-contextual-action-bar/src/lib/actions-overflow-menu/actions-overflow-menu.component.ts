@@ -1,16 +1,16 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { select, Store } from '@ngrx/store';
 import { combineLatest, fromEvent, Observable } from 'rxjs';
 import { debounceTime, map, startWith } from 'rxjs/operators';
 import { ActionBarLayerAction } from '../model/action-bar-layer.model';
 
-import * as selectors from '../store/selectors';
 import xor from "arr-xor";
 import { ContextualActionBarService } from '../ngx-contextual-action-bar.service';
 
 const ICON_WIDTH = 40;
 
 import { ActionAnimation } from "./animations/action.animation";
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ngx-actions-overflow-menu',
@@ -38,17 +38,19 @@ export class DmlActionsOverflowMenuComponent implements OnInit {
   public menu$!:     Observable<ActionBarLayerAction[]>;
 
   constructor(
-    private store: Store,
-    private service: ContextualActionBarService
-  ) {}
+    private service: ContextualActionBarService,
+    private registery: MatIconRegistry,
+    private sanitizer: DomSanitizer
+  ) {
+    const safeUrl = sanitizer.bypassSecurityTrustResourceUrl('assets/')
+  }
 
   handleActionClick(id: string, action: ActionBarLayerAction){
     this.service.actionEmitter.emit([id, action.icon])
   }
 
   ngOnInit(): void {
-    this.layer$ = this.store.pipe(
-      select(selectors.latest, {group: this.group}),
+    this.layer$ = this.service.latest(this.group).pipe(
       map(layer => ({id: layer.id, actions: layer.actions}))
     )
     this.width = this._resizeEvent$.pipe(

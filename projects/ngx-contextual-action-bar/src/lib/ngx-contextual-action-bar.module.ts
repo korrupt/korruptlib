@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContextualActionBarComponent } from './ngx-contextual-action-bar.component';
-import { StoreFeatureModule, StoreModule } from '@ngrx/store';
-
-import { featureKey, reducer } from "./store/reducer";
-import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 
+import { ContextualActionBarComponent } from './ngx-contextual-action-bar.component';
+import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
 import { ScrollhandlerDirective } from './ngx-scrollhandler.directive';
 import { DmlActionsOverflowMenuComponent } from './actions-overflow-menu/actions-overflow-menu.component';
 
@@ -27,14 +24,14 @@ const MATERIAL_MODULES = [
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature(featureKey, reducer),
     ...MATERIAL_MODULES
   ],
   exports: [
-    ContextualActionBarComponent
+    ContextualActionBarComponent,
+    
   ],
   providers: [
-    ContextualActionBarService
+    ContextualActionBarService,
   ]
 })
 export class ContextualActionBarModule { }

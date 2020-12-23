@@ -3,6 +3,5 @@
   "dest": "../../dist/ngx-contextual-action-bar",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "deleteDestPath": true
+  }
 }

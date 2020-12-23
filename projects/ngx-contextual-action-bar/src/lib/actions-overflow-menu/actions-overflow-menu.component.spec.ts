@@ -9,7 +9,6 @@ import { State } from '../store/reducer';
 import { DmlActionsOverflowMenuComponent } from './actions-overflow-menu.component';
 import * as selectors from '../store/selectors'
 import { fakeSchedulers } from 'rxjs-marbles/jasmine/angular';
-import { By } from '@angular/platform-browser';
 import { ActionBarLayerModel } from '../model/action-bar-layer.model';
 
 describe('DmlActionsOverflowMenuComponent', () => {

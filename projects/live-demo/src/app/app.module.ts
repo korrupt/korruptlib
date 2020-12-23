@@ -11,11 +11,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatRippleModule } from '@angular/material/core';
 
 const MATERIAL_MODULES = [
     MatIconModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRippleModule
 ]
 
 @NgModule({
@@ -24,10 +26,9 @@ const MATERIAL_MODULES = [
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({}),
     BrowserAnimationsModule,
     ContextualActionBarModule,
-    // ...MATERIAL_MODULES
+    ...MATERIAL_MODULES
   ],
   providers: [],
   bootstrap: [AppComponent]
