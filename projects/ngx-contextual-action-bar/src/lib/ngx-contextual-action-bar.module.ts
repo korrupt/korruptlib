@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContextualActionBarComponent } from './ngx-contextual-action-bar.component';
-import { StoreModule } from '@ngrx/store';
+import { StoreFeatureModule, StoreModule } from '@ngrx/store';
 
 import { featureKey, reducer } from "./store/reducer";
 import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
