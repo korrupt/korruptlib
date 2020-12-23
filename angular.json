@@ -3,5 +3,48 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "ngx-contextual-action-bar": {
+      "projectType": "library",
+      "root": "projects/ngx-contextual-action-bar",
+      "sourceRoot": "projects/ngx-contextual-action-bar/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-contextual-action-bar/tsconfig.lib.json",
+            "project": "projects/ngx-contextual-action-bar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-contextual-action-bar/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-contextual-action-bar/src/test.ts",
+            "tsConfig": "projects/ngx-contextual-action-bar/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-contextual-action-bar/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-contextual-action-bar/tsconfig.lib.json",
+              "projects/ngx-contextual-action-bar/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": "95cd4051-2adf-4318-a097-d362720d9df6"
+  },
+  "defaultProject": "ngx-contextual-action-bar"
 }

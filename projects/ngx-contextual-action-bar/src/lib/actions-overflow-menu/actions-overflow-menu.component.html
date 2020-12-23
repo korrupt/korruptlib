@@ -1,0 +1,20 @@
+<div #c class="component" >
+    <ng-container *ngIf="layer$ | async as layer">
+        <!-- visible -->
+        <button @action mat-icon-button *ngFor="let action of visible$ | async" (click)="handleActionClick(layer.id, action)">
+            <mat-icon>{{action.icon}}</mat-icon>
+        </button>
+        <!-- menu -->
+        <ng-container  *ngIf="menu$ | async as menu">
+            <mat-menu #matMenu>
+                <button mat-menu-item *ngFor="let action of menu" (click)="handleActionClick(layer.id, action)">
+                    <mat-icon>{{action.icon}}</mat-icon>
+                    <span>{{action.displayName}}</span>
+                </button>
+            </mat-menu>
+            <button @action class="menu-trigger" [matMenuTriggerFor]="matMenu" mat-icon-button *ngIf="menu.length > 0">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </ng-container>
+    </ng-container>
+</div>
