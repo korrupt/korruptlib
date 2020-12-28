@@ -1,7 +1,11 @@
 .app {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
+    max-width: 500px;
+    max-height: 700px;
+    // overflow-y: auto;
+    // overflow-x: hidden;
     .ngx-contextual-action-bar {
         position: relative;
         height: 100%;

@@ -12,7 +12,9 @@ export interface ActionBarLayerModel {
     group: string;
     image: boolean;
     actions: ActionBarLayerAction[];
-    // position: 'adaptive' | 'fixed';
+    prominent: boolean;
+    mode: 'fixed'| 'follow' | 'mobile' ;
+    // mode: 'fixed'| 'follow';
 }
 
 interface OPTIONAL {
@@ -21,7 +23,9 @@ interface OPTIONAL {
     image?: boolean;
     group?: string;
     actions?: ActionBarLayerAction[];
-    // position?: 'adaptive' | 'fixed';
+    prominent?: boolean;
+    mode?: 'fixed' | 'follow' | 'mobile';
+    // mode?: 'fixed' | 'follow';
 }
 
 export type ActionBarLayer = Omit<ActionBarLayerModel, keyof OPTIONAL> & Omit<OPTIONAL, 'id'>

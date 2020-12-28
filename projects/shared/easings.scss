@@ -1,0 +1,9 @@
+
+// elements that begin and end at resting position
+$standard:    cubic-bezier(0.4, 0.0, 0.2, 1);
+
+// incoming elements
+$decelerated: cubic-bezier(0.0, 0.0, 0.2, 1);
+
+// outgoing elements
+$accelerated: cubic-bezier(0.4, 0.0, 1, 1);

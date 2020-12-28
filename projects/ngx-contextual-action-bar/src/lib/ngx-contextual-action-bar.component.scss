@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 
 :host {
     position: relative;
@@ -10,37 +11,40 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: scroll;
     z-index: 16;
+    .content {
+        z-index: 0;
+    }
 }
-
 .navbar {
-    z-index: 15;
+    position: relative;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 56px;
-    position: fixed;
     display: flex;
+    flex-direction: row;
+    height: 56px;
     box-sizing: border-box;
-    transition: background 150ms ease, color 150ms ease;
-    .title {
-        flex: 0 1 auto;
-        font: 20px/22px 'Roboto', sans-serif;
-        margin: 0;
-        align-self: flex-start;
-        padding: 18px 64px 0 16px;
-    }
+    width: 100%;
+    z-index: 3;
+    @include mat-elevation-transition;
     .button {
         padding: 8px;
         display: flex;
         justify-content: flex-start;
         button {
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .wrapper {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             .mat-icon {
-                top: 8px;
-                left: 8px;
                 position: absolute;
                 &.old {
                     display: none;
@@ -48,18 +52,71 @@
             }
         }
     }
+    .title {
+        flex: 0 1 auto;
+        display: flex;
+        align-items: flex-end;
+        padding-left: 16px;
+        padding-right: 64px;
+        padding-bottom: 10px;
+        h2 {
+            margin: 0;
+        }
+    }
     .actions {
         flex: 1 1 auto;
         height: 100%;
         position: relative;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        .ngx-actions-overflow-menu {
+            flex: 0 0 56px;
+        }
+    }
+    &.shadow {
+        @include mat-elevation(4);
     }
 }
-.content {
-    position: relative;
-    z-index: 0;
-    margin: 56px 0 0;
-    &.nomargin {
-        margin: 0;
+
+.component {
+    &.mobile {
+        .navbar {
+            position: sticky;
+        }
+        .content {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+    
+}
+
+.component.prominent {
+    .navbar {
+        padding-bottom: 8px;
+        height: 128px;
     }
 }
+
+// .component.fixed {
+//     overflow-x: hidden;
+//     overflow-y: auto;
+//     .navbar {
+//         position: relative;
+//     }
+//     .content {
+//         flex: 1 1 auto;
+//     }
+// }
+
+// .component.follow {
+//     .navbar {
+//         position: sticky;
+//     }
+//     .content {
+//         overflow-x: hidden;
+//         overflow-y: auto;
+//     }
+// }
+

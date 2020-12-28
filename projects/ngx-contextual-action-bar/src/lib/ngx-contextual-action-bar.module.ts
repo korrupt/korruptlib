@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatDividerModule } from "@angular/material/divider";
 
 import { ContextualActionBarComponent } from './ngx-contextual-action-bar.component';
 import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
@@ -13,7 +14,8 @@ import { DmlActionsOverflowMenuComponent } from './actions-overflow-menu/actions
 const MATERIAL_MODULES = [
   MatIconModule,
   MatButtonModule,
-  MatMenuModule
+  MatMenuModule,
+  MatDividerModule
 ]
 
 @NgModule({

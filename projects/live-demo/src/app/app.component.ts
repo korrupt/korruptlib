@@ -21,9 +21,21 @@ export class AppComponent {
       title: 'Live',
       button: 'clear',
       image: false,
-      actions: [],
-      group: 'root'
+      actions: [
+        { icon: 'share', displayName: 'Del denne siden' }
+      ],
+      group: 'root',
+      mode: 'mobile',
+      prominent: true
     })
+    // setTimeout(() => {
+    //   this.layer = service.register({
+    //     background: '#FFF',
+    //     button: 'arrow_back',
+    //     color: '#000',
+    //     mode: 'mobile'
+    //   })
+    // }, 1e3)
 
   }
 }

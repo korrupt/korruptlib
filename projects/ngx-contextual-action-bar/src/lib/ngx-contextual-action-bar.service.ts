@@ -14,7 +14,9 @@ const DEFAULT_LAYER_OPTIONS: Partial<ActionBarLayerModel> = {
   title: '',
   image: false,
   group: 'root',
-  actions: []
+  actions: [],
+  mode: 'fixed',
+  prominent: false
 }
 
 @Injectable({

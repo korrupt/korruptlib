@@ -16,6 +16,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'ngx-actions-overflow-menu',
   templateUrl: './actions-overflow-menu.component.html',
   styleUrls: ['./actions-overflow-menu.component.scss'],
+  host: {
+    class: 'ngx-actions-overflow-menu'
+  },
   animations: [
     ActionAnimation,
   ]

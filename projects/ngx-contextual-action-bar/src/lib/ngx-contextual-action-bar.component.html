@@ -1,28 +1,47 @@
-<div class="component"
-    ngxScrollhandler
->   
-    <ng-container *ngIf="layer$ | async as layer">
-        <div class="navbar"
-            *ngIf="layer.id"
-            [style.color]="layer.color"
-            [style.background]="layer.background"
-            [@fixedInView]="fixed$ | async"
+<ng-template #navbar let-layer="layer">
+        <div class="button"
+            *ngIf="(button$ | async); let button"
         >
-            <ng-container *ngIf="button$ | async as _button">
-                <div class="button">
-                    <button [@buttonAnimation]="_button" mat-icon-button (click)="handleButtonClick(layer.id)">
-                        <mat-icon class="old">{{_button[0]}}</mat-icon>
-                        <mat-icon class="new">{{_button[1]}}</mat-icon>
-                    </button>
+            <button mat-icon-button [@buttonAnimation]="button">
+                <div class="wrapper">
+                    <mat-icon class="old">{{button[0]}}</mat-icon>
+                    <mat-icon class="new">{{button[1]}}</mat-icon>
                 </div>
-            </ng-container>
-            <h2 class="title">{{layer?.title}}</h2>
-            <div class="actions">
-                <ngx-actions-overflow-menu></ngx-actions-overflow-menu>
-            </div>
+            </button>
         </div>
-    </ng-container>
-    <div class="content" [class.nomargin]="nomargin$ | async">
+        <div class="title" *ngIf="layer?.title">
+            <h2>{{layer.title}}</h2>
+        </div>
+        <div class="actions">
+            <ngx-actions-overflow-menu [group]="group"></ngx-actions-overflow-menu>
+        </div>
+</ng-template>
+
+<!-- <div class="dummy-wrapper">
+    <nav class="navbar"
+    [style.color]="(layer$ | async)?.color"
+    [style.background]="(layer$ | async)?.background"
+    >
+        <ng-container *ngTemplateOutlet="navbar; context: { layer: layer$ | async }"></ng-container>
+    </nav>
+</div> -->
+<div class="component"
+    [class]="(layer$ | async)?.mode"
+    [class.prominent]="(layer$ | async)?.prominent"
+>   
+<!-- <ng-container *ngTemplateOutlet="navbar; context: { layer: layer$ | async }"></ng-container> -->
+<div class="content" #c cdkScrollable>
+    
+    
+        <nav class="navbar"
+            [style.color]="(layer$ | async)?.color"
+            [style.background]="(layer$ | async)?.background"
+            [@fixed]="fixed$ | async"
+            [class.shadow]="(fixed$ | async) === 'visible'"
+        >
+            <ng-container *ngTemplateOutlet="navbar; context: { layer: layer$ | async }"></ng-container>
+        </nav>
+        <mat-divider></mat-divider>
         <ng-content></ng-content>
     </div>
 </div>

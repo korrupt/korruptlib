@@ -9,6 +9,7 @@ export const buttonAnimation = trigger('buttonAnimation', [
         ], {optional}),
         group([
             query('.old', [
+                style({display: 'block'}),
                 animate('150ms ease-in', style({ opacity: 0, transform: 'rotate(180deg)' })),
             ]),
             query('.new', [
