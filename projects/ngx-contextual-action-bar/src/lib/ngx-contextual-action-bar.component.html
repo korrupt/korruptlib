@@ -37,7 +37,7 @@
             [style.color]="(layer$ | async)?.color"
             [style.background]="(layer$ | async)?.background"
             [@fixed]="fixed$ | async"
-            [class.shadow]="(fixed$ | async) === 'visible'"
+            [class.shadow]="(shadow$ | async)"
         >
             <ng-container *ngTemplateOutlet="navbar; context: { layer: layer$ | async }"></ng-container>
         </nav>

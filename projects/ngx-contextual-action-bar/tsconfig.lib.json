@@ -3,18 +3,21 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
+    "paths": {
+      "@material/*": ["./src/lib/material/*"]
+    },
     "target": "es2015",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
     "typeRoots": [
       "./src/types/",
-      "node_modules/@types"
+      "node_modules/@types",
     ],
     "lib": [
       "dom",
       "es2018"
-    ]
+    ],
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

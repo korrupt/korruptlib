@@ -14,6 +14,8 @@
     z-index: 16;
     .content {
         z-index: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 }
 .navbar {
@@ -27,6 +29,8 @@
     width: 100%;
     z-index: 3;
     @include mat-elevation-transition;
+    // temporary fix
+    transition-property: height, box-shadow, padding-bottom, color, background;
     .button {
         padding: 8px;
         display: flex;
@@ -78,45 +82,9 @@
         @include mat-elevation(4);
     }
 }
-
-.component {
-    &.mobile {
-        .navbar {
-            position: sticky;
-        }
-        .content {
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-    }
-    
-}
-
 .component.prominent {
     .navbar {
         padding-bottom: 8px;
         height: 128px;
     }
 }
-
-// .component.fixed {
-//     overflow-x: hidden;
-//     overflow-y: auto;
-//     .navbar {
-//         position: relative;
-//     }
-//     .content {
-//         flex: 1 1 auto;
-//     }
-// }
-
-// .component.follow {
-//     .navbar {
-//         position: sticky;
-//     }
-//     .content {
-//         overflow-x: hidden;
-//         overflow-y: auto;
-//     }
-// }
-

@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "build:action-bar:watch":"ng build ngx-contextual-action-bar --watch",
     "build:action-bar": "ng build ngx-contextual-action-bar && npm i dist/ngx-contextual-action-bar --save-optional"
   },
   "private": true,

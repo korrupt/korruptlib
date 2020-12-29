@@ -1,14 +1,13 @@
 import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
 
-import * as actions from './store/actions';
 import { Observable } from 'rxjs';
 import { filter, map, mapTo } from 'rxjs/operators';
-import { ActionBarLayerModel } from './model/action-bar-layer.model';
+import { ActionBarLayerModel, ActionBarLayer } from './model/action-bar-layer.model';
 
 export class ActionBarLayerRegistration {
     constructor(
         private service: ContextualActionBarService,
-        private readonly _layer: ActionBarLayerModel,
+        private _layer: ActionBarLayerModel,
     ){
         this.service._addLayer(_layer);
     }
@@ -26,6 +25,20 @@ export class ActionBarLayerRegistration {
 
     public get layer(): ActionBarLayerModel {
         return this._layer;
+    }
+
+    /**
+     * 
+     * @param layer Object containing properties to update
+     */
+    setLayer(layer: Partial<ActionBarLayer>){
+        const value = this.service._layers.value;
+        const idx = value.findIndex(e => e.id === this.layer.id);
+        if (idx > -1){
+            value[idx] = Object.assign(value[idx], layer);
+            this.service._layers.next(value);
+            this._layer = value[idx];
+        }
     }
 
     unregister(){

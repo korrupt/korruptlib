@@ -2,10 +2,6 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { ActionBarLayer, ActionBarLayerModel } from './model/action-bar-layer.model';
 
 import * as uuidv4 from 'uuid';
-
-import { Store } from '@ngrx/store';
-
-import * as actions   from "./store/actions";
 import { ActionBarLayerRegistration, ActionBarLayerToggleRegistration } from './layer-registration';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';

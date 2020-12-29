@@ -10,9 +10,6 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "allowedCommonJsDependencies": [
-            "arr-xor"
-          ],
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ngx-contextual-action-bar/tsconfig.lib.json",

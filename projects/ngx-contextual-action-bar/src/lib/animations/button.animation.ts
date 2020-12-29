@@ -1,20 +1,27 @@
 import { animate, group, query, style, transition, trigger } from '@angular/animations';
 
-const optional = true;
+// const optional = true;
+
+import * as easings from '../material/easings';
+import * as timings from '../material/timings';
 
 export const buttonAnimation = trigger('buttonAnimation', [
-    transition('* => *', [
+    transition((from, to, el) => {
+        return from == to
+    }, []),
+    transition(('* <=> *'), [
         query('.new', [
             style({ opacity: 0, transform: 'rotate(180deg)' })
-        ], {optional}),
+        ]),
         group([
             query('.old', [
                 style({display: 'block'}),
-                animate('150ms ease-in', style({ opacity: 0, transform: 'rotate(180deg)' })),
+                animate(`${timings.small_enter} ${easings.accelerated}`, style({ opacity: 0, transform: 'rotate(180deg)' })),
             ]),
             query('.new', [
-                animate('150ms ease-in', style({ opacity: 1, transform: 'rotate(360deg)' }))
-            ], {optional}),
+                animate(`${timings.small_enter} ${easings.decelerated}`, style({ opacity: 1, transform: 'rotate(360deg)' }))
+            ]),
         ])
-    ])
+    ]),
+
 ])

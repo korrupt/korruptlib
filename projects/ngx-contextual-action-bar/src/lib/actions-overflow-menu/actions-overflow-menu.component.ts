@@ -3,7 +3,7 @@ import { combineLatest, fromEvent, Observable } from 'rxjs';
 import { debounceTime, map, startWith } from 'rxjs/operators';
 import { ActionBarLayerAction } from '../model/action-bar-layer.model';
 
-import xor from "arr-xor";
+import xor from "arr-xor"; 
 import { ContextualActionBarService } from '../ngx-contextual-action-bar.service';
 
 const ICON_WIDTH = 40;

@@ -1,11 +1,9 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, combineLatest, fromEvent, Observable, of, Subscription } from 'rxjs';
-import { concatMap, distinctUntilChanged, map, mergeMap, pairwise, scan, startWith, switchMap, tap } from "rxjs/operators";
+import { combineLatest, fromEvent, Observable } from 'rxjs';
+import { distinctUntilChanged, map, pairwise, scan, startWith, switchMap } from "rxjs/operators";
 import { ActionBarLayerModel } from './model/action-bar-layer.model';
 import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
 import { buttonAnimation } from './animations/button.animation';
-import { ViewportRuler } from '@angular/cdk/overlay';
 import { fixed } from './animations/fixed';
 
 @Component({
@@ -32,15 +30,13 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
   layer$!: Observable<ActionBarLayerModel | undefined>;
   @Input() group: string = 'root';
 
-  private navbarHeight$!: Observable<number>;
-
   public fixed$!: Observable<string>;
-  public nomargin$!: Observable<boolean | undefined>;
   public button$!: Observable<[string | undefined, string | undefined]>;
+  public shadow$!: Observable<boolean>;
+
 
   constructor(
-    private service: ContextualActionBarService,
-    private vr: ViewportRuler
+    private service: ContextualActionBarService
   ) {
   }
 
@@ -50,7 +46,6 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.layer$ = this.service.latest(this.group);
-    this.navbarHeight$ = this.layer$.pipe(map(layer => layer?.prominent ? 128 : 56))
     this.scroll = fromEvent(this.content.nativeElement, 'scroll').pipe(
       map(event => (event.target as HTMLElement).scrollTop)
     );
@@ -69,21 +64,38 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
     this.button$ = this.layer$.pipe(
       map(layer => layer?.button),
       startWith(undefined),
-      pairwise()
+      pairwise(),
+      distinctUntilChanged(([a, b]) => a === b || a === undefined)
     )
+
+    this.button$.subscribe(s => console.log(s))
     this.fixed$ = combineLatest([this.scroll, this.netScroll$, this.layer$]).pipe(
       scan((prev, [scroll, netscroll, layer]) => {
-        if (prev === 'noanim') return scroll < (layer?.prominent ? 128 : 56) ? 'fixed' : 'hidden'
-        else if (prev === 'fixed'){
-          if (scroll < (layer?.prominent ? 128 : 56)) return 'fixed';
-          return netscroll < -this.scrollThreshold ? 'visible' : 'fixed'
-        } else {
-          if (scroll < 1) return 'noanim';
+        // spaget 🍝
+        if (layer?.mode === 'follow'){
+          if (prev === 'noanim') return 'fixed';
+          return scroll > 1 ? 'visible' : 'nonaim';
+        } else if (layer?.mode === 'fixed') return 'fixed';
+        else {
+          if (prev === 'noanim') return 'fixed';
+          else if (prev === 'fixed'){
+            if (scroll < (layer?.prominent ? 128 : 56)) return 'fixed';
+          } else {
+            if (scroll < 1) return 'noanim';
+          }
           return netscroll < -this.scrollThreshold ? 'visible' : 'fixed'
         }
       }, 'fixed')
     )
-    this.fixed$.subscribe(s => console.log(s))
+
+    this.shadow$ = this.layer$.pipe(
+      switchMap(layer => {
+        if (layer?.mode === 'follow') {
+          return this.scroll.pipe(map(v => v > 1));
+        }
+        return this.fixed$.pipe(map(v => v === 'visible'));
+      })
+    )
   }
 
   ngOnDestroy(){
