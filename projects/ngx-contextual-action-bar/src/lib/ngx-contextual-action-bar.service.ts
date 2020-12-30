@@ -1,17 +1,16 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { ActionBarLayer, ActionBarLayerModel } from './model/action-bar-layer.model';
+import { ActionBarLayer, ActionBarLayerModel, ActionBarLayerModes } from './model/action-bar-layer.model';
 
 import * as uuidv4 from 'uuid';
 import { ActionBarLayerRegistration, ActionBarLayerToggleRegistration } from './layer-registration';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 const DEFAULT_LAYER_OPTIONS: Partial<ActionBarLayerModel> = {
   title: '',
-  image: false,
   group: 'root',
   actions: [],
-  mode: 'fixed',
+  mode: ActionBarLayerModes.fixed,
   prominent: false
 }
 
@@ -25,10 +24,15 @@ export class ContextualActionBarService {
   ) { }
 
   /**
-   * Internal property, modify at own risk
+   * 
+   * Internal property, use at own risk.
    */
   public readonly _layers: BehaviorSubject<ActionBarLayerModel[]> = new BehaviorSubject<ActionBarLayerModel[]>([]);
   
+  /**
+   * Internal function used to retrieve most recent layer.
+   * @param group - what group to target
+   */
   public latest(group: string = 'root'): Observable<ActionBarLayerModel> {
     return this._layers.asObservable().pipe(
       //filter by group
@@ -46,12 +50,15 @@ export class ContextualActionBarService {
     const { value } = this._layers;
     this._layers.next(value.filter(layer => layer.id !== id));
   }
-
+  /**
+   * Internal function
+   * @param layer - The layer to add
+   */
   public _addLayer(layer: ActionBarLayerModel): void {
     const { value } = this._layers;
     this._layers.next([...value, layer]);
   }
-
+  
   public buttonEmitter: EventEmitter<string> = new EventEmitter<string>();
   public actionEmitter: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
 
@@ -67,6 +74,10 @@ export class ContextualActionBarService {
            layer.actions !== undefined
   }
 
+  /**
+   * Function to register a new layer. Returns a registration
+   * @param layerOptions 
+   */
   register(layerOptions: ActionBarLayer): ActionBarLayerRegistration {
     const layer = this.applyMissingProperties(layerOptions);
     if (this.validateLayer(layer)){
@@ -76,6 +87,11 @@ export class ContextualActionBarService {
     }
   }
 
+  /**
+   * Use at own risk, is set to be deprecated after next major version.
+   * @param layer 
+   * @param toggleLayer 
+   */
   registerToggle(layer: ActionBarLayer, toggleLayer: ActionBarLayer): ActionBarLayerToggleRegistration {
     const _layer       = this.applyMissingProperties(layer);
     const _toggleLayer = this.applyMissingProperties(toggleLayer);

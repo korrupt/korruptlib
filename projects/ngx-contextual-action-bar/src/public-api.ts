@@ -6,5 +6,5 @@ export { ContextualActionBarModule } from './lib/ngx-contextual-action-bar.modul
 export { ContextualActionBarService } from './lib/ngx-contextual-action-bar.service';
 export { ContextualActionBarComponent } from './lib/ngx-contextual-action-bar.component';
 
-export { ActionBarLayer } from "./lib/model/action-bar-layer.model";
+export { ActionBarLayer, ActionBarLayerModes, ActionBarLayerAction } from "./lib/model/action-bar-layer.model";
 export { ActionBarLayerRegistration, ActionBarLayerToggleRegistration } from './lib/layer-registration';

@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { combineLatest, fromEvent, Observable } from 'rxjs';
 import { distinctUntilChanged, map, pairwise, scan, startWith, switchMap } from "rxjs/operators";
-import { ActionBarLayerModel } from './model/action-bar-layer.model';
+import { ActionBarLayerModel, ActionBarLayerModes } from './model/action-bar-layer.model';
 import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
 import { buttonAnimation } from './animations/button.animation';
 import { fixed } from './animations/fixed';
@@ -68,14 +68,13 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
       distinctUntilChanged(([a, b]) => a === b || a === undefined)
     )
 
-    this.button$.subscribe(s => console.log(s))
     this.fixed$ = combineLatest([this.scroll, this.netScroll$, this.layer$]).pipe(
       scan((prev, [scroll, netscroll, layer]) => {
         // spaget 🍝
-        if (layer?.mode === 'follow'){
+        if (layer?.mode === ActionBarLayerModes.follow){
           if (prev === 'noanim') return 'fixed';
           return scroll > 1 ? 'visible' : 'nonaim';
-        } else if (layer?.mode === 'fixed') return 'fixed';
+        } else if (layer?.mode === ActionBarLayerModes.fixed) return 'fixed';
         else {
           if (prev === 'noanim') return 'fixed';
           else if (prev === 'fixed'){
@@ -90,7 +89,7 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
 
     this.shadow$ = this.layer$.pipe(
       switchMap(layer => {
-        if (layer?.mode === 'follow') {
+        if (layer?.mode === ActionBarLayerModes.follow) {
           return this.scroll.pipe(map(v => v > 1));
         }
         return this.fixed$.pipe(map(v => v === 'visible'));
