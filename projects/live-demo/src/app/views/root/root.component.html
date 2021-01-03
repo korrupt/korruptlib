@@ -1,0 +1,34 @@
+<div class="page">
+    <section>
+        <h3>This is a live demo of ngx-contextual-action-bar</h3>
+    
+        <p>It has three different modes:</p>
+        <div class="modes">
+            <div class="smartphone">
+                <ngx-contextual-action-bar group="group1">
+                    {{dummyText}}
+                </ngx-contextual-action-bar>
+            </div>
+            <div class="smartphone">
+                <ngx-contextual-action-bar group="group2">
+                    {{dummyText}}
+                </ngx-contextual-action-bar>
+            </div>
+            <div class="smartphone">
+                <ngx-contextual-action-bar group="group3">
+                    {{dummyText}}
+                </ngx-contextual-action-bar>
+            </div>
+        </div>
+    </section>
+    <section style="background: #009A44; padding-top: 64px">
+        <h3>It can also show a prominent version</h3>
+        <div class="button-wrapper">
+            <button mat-flat-button (click)="handleProminentClick()">Toggle prominent</button>
+        </div>
+        <h3>or transparent backgrounds</h3>
+        <div class="button-wrapper">
+            <a mat-flat-button routerLink="/transparent">Check it out</a>
+        </div>
+    </section>
+</div>

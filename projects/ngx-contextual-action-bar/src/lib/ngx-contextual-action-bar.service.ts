@@ -4,7 +4,7 @@ import { ActionBarLayer, ActionBarLayerModel, ActionBarLayerModes } from './mode
 import * as uuidv4 from 'uuid';
 import { ActionBarLayerRegistration, ActionBarLayerToggleRegistration } from './layer-registration';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, distinctUntilKeyChanged, map } from 'rxjs/operators';
 
 const DEFAULT_LAYER_OPTIONS: Partial<ActionBarLayerModel> = {
   title: '',
@@ -38,7 +38,9 @@ export class ContextualActionBarService {
       //filter by group
       map(layers => layers.filter(layer => layer.group === group)),
       //get latest layer
-      map(layers => layers[layers.length - 1])
+      map(layers => layers[layers.length - 1]),
+      // dont react to other layers changing
+      distinctUntilChanged((a, b) => a?.id == b?.id)
     );
   }
 
@@ -68,10 +70,7 @@ export class ContextualActionBarService {
   }
 
   private validateLayer(layer: ActionBarLayer){
-    return layer.background !== undefined &&
-           layer.color !== undefined &&
-           layer.button !== undefined &&
-           layer.actions !== undefined
+    return true;
   }
 
   /**

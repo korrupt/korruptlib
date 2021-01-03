@@ -1,10 +1,12 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { combineLatest, fromEvent, Observable } from 'rxjs';
-import { distinctUntilChanged, map, pairwise, scan, startWith, switchMap } from "rxjs/operators";
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { combineLatest, fromEvent, Observable, of } from 'rxjs';
+import { distinctUntilChanged, distinctUntilKeyChanged, map, pairwise, scan, startWith, switchMap } from "rxjs/operators";
 import { ActionBarLayerModel, ActionBarLayerModes } from './model/action-bar-layer.model';
 import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
 import { buttonAnimation } from './animations/button.animation';
-import { fixed } from './animations/fixed';
+import { navbarAnimation } from './animations/navbar.animation';
+import { paddingAnimation } from './animations/padding.animations';
+import { layerSwitchAnimation } from './animations/layer-switch.animation';
 
 @Component({
   selector: 'ngx-contextual-action-bar',
@@ -14,9 +16,12 @@ import { fixed } from './animations/fixed';
     'class': 'ngx-contextual-action-bar'
   },
   animations: [
-    fixed,
-    buttonAnimation
-  ]
+    navbarAnimation,
+    buttonAnimation,
+    paddingAnimation,
+    layerSwitchAnimation
+  ],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class ContextualActionBarComponent implements OnInit, OnDestroy {
 
@@ -30,9 +35,11 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
   layer$!: Observable<ActionBarLayerModel | undefined>;
   @Input() group: string = 'root';
 
-  public fixed$!: Observable<string>;
+  public navbarState$!: Observable<string>;
   public button$!: Observable<[string | undefined, string | undefined]>;
   public shadow$!: Observable<boolean>;
+  public contentState$!: Observable<'none' | 'regular' | 'prominent'>;
+  public layerSwitchTrigger$!: Observable<string | undefined>;
 
 
   constructor(
@@ -46,10 +53,15 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.layer$ = this.service.latest(this.group);
+    this.layerSwitchTrigger$ = this.layer$.pipe(
+      map(layer => layer?.id)
+    )
     this.scroll = fromEvent(this.content.nativeElement, 'scroll').pipe(
-      map(event => (event.target as HTMLElement).scrollTop)
+      map(event => (event.target as HTMLElement).scrollTop),
+      startWith(0)
     );
     this.netScroll$ = this.scroll.pipe(
+      startWith(0),
       pairwise(),
       scan((acc, cur) => {
         const [a, b] = cur;
@@ -65,12 +77,13 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
       map(layer => layer?.button),
       startWith(undefined),
       pairwise(),
-      distinctUntilChanged(([a, b]) => a === b || a === undefined)
+      // distinctUntilChanged(([a, b]) => a === b || a === undefined)
     )
 
-    this.fixed$ = combineLatest([this.scroll, this.netScroll$, this.layer$]).pipe(
+    this.navbarState$ = combineLatest([this.scroll, this.netScroll$, this.layer$]).pipe(
       scan((prev, [scroll, netscroll, layer]) => {
         // spaget 🍝
+        if (layer?.background === 'transparent') return 'transparent';
         if (layer?.mode === ActionBarLayerModes.follow){
           if (prev === 'noanim') return 'fixed';
           return scroll > 1 ? 'visible' : 'nonaim';
@@ -91,10 +104,21 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
       switchMap(layer => {
         if (layer?.mode === ActionBarLayerModes.follow) {
           return this.scroll.pipe(map(v => v > 1));
+        } else if (layer?.background === 'transparent') {
+          return of(false);
         }
-        return this.fixed$.pipe(map(v => v === 'visible'));
+        return this.navbarState$.pipe(map(v => v === 'visible'));
       })
     )
+
+    this.contentState$ = this.layer$.pipe(
+      map(layer => {
+        if (!layer) return 'none';
+        if (layer.background !== 'transparent') return 'none';
+        return layer.prominent ? 'prominent' : 'regular';
+      })
+    )
+
   }
 
   ngOnDestroy(){

@@ -9,8 +9,6 @@ import { ContextualActionBarService } from '../ngx-contextual-action-bar.service
 const ICON_WIDTH = 40;
 
 import { ActionAnimation } from "./animations/action.animation";
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ngx-actions-overflow-menu',
@@ -28,7 +26,7 @@ export class DmlActionsOverflowMenuComponent implements OnInit {
   @Input() group: string = 'root';
   @ViewChild('c', { read: ElementRef, static: true }) private c!: ElementRef<HTMLElement>;
 
-  layer$!: Observable<{id: string, actions: ActionBarLayerAction[]}>;
+  layer$!: Observable<{id: string, actions: ActionBarLayerAction[]} | undefined>;
 
   private _resizeEvent$ = fromEvent(window, 'resize').pipe(
     startWith(undefined),
@@ -42,10 +40,8 @@ export class DmlActionsOverflowMenuComponent implements OnInit {
 
   constructor(
     private service: ContextualActionBarService,
-    private registery: MatIconRegistry,
-    private sanitizer: DomSanitizer
   ) {
-    const safeUrl = sanitizer.bypassSecurityTrustResourceUrl('assets/')
+    
   }
 
   handleActionClick(id: string, action: ActionBarLayerAction){
@@ -54,7 +50,10 @@ export class DmlActionsOverflowMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.layer$ = this.service.latest(this.group).pipe(
-      map(layer => ({id: layer.id, actions: layer.actions}))
+      map(layer => {
+        if (!layer) return undefined; 
+        return {id: layer.id, actions: layer.actions};
+      })
     )
     this.width = this._resizeEvent$.pipe(
       map(_ => this.c.nativeElement.getBoundingClientRect().width)
@@ -70,7 +69,7 @@ export class DmlActionsOverflowMenuComponent implements OnInit {
     )
     this.menu$ = combineLatest([this.visible$, this.layer$]).pipe(
       map(([visible, layer]) => {
-        return xor(visible, layer.actions, (a: ActionBarLayerAction, b: ActionBarLayerAction) => {
+        return xor(visible, layer?.actions || [], (a: ActionBarLayerAction, b: ActionBarLayerAction) => {
           return a.icon === b.icon
         })
       })

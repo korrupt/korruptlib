@@ -2,7 +2,8 @@
         <div class="button"
             *ngIf="(button$ | async); let button"
         >
-            <button mat-icon-button [@buttonAnimation]="button">
+            <button mat-icon-button *ngIf="button[1]" (click)="handleButtonClick(layer.id)">
+            <!-- <button mat-icon-button [@buttonAnimation]="button" (click)="handleButtonClick(layer.id)"> -->
                 <div class="wrapper">
                     <mat-icon class="old">{{button[0]}}</mat-icon>
                     <mat-icon class="new">{{button[1]}}</mat-icon>
@@ -16,27 +17,20 @@
             <ngx-actions-overflow-menu [group]="group"></ngx-actions-overflow-menu>
         </div>
 </ng-template>
-
-<!-- <div class="dummy-wrapper">
-    <nav class="navbar"
-    [style.color]="(layer$ | async)?.color"
-    [style.background]="(layer$ | async)?.background"
-    >
-        <ng-container *ngTemplateOutlet="navbar; context: { layer: layer$ | async }"></ng-container>
-    </nav>
-</div> -->
 <div class="component"
     [class]="(layer$ | async)?.mode"
     [class.prominent]="(layer$ | async)?.prominent"
->   
-<!-- <ng-container *ngTemplateOutlet="navbar; context: { layer: layer$ | async }"></ng-container> -->
-<div class="content" #c cdkScrollable>
+    [@layerSwitch]="layerSwitchTrigger$ | async"
+> 
+    <div class="content" #c cdkScrollable
+        [@padding]="contentState$ | async"
+    >
     
     
         <nav class="navbar"
             [style.color]="(layer$ | async)?.color"
             [style.background]="(layer$ | async)?.background"
-            [@fixed]="fixed$ | async"
+            [@navbar]="navbarState$ | async"
             [class.shadow]="(shadow$ | async)"
         >
             <ng-container *ngTemplateOutlet="navbar; context: { layer: layer$ | async }"></ng-container>

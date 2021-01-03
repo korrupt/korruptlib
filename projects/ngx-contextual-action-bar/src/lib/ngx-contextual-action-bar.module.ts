@@ -30,7 +30,6 @@ const MATERIAL_MODULES = [
   ],
   exports: [
     ContextualActionBarComponent,
-    
   ],
   providers: [
     ContextualActionBarService,

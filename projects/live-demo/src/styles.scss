@@ -37,3 +37,17 @@ $live-demo-theme: mat-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+h3, p {
+  text-align: center;
+}
+button {
+  margin: 0 auto;
+  align-self: center;
+}
+
+img {
+  width: 100%;
+  object-fit: cover;
+}

@@ -16,6 +16,7 @@
         z-index: 0;
         overflow-x: hidden;
         overflow-y: auto;
+        position: relative;
     }
 }
 .navbar {
@@ -32,10 +33,17 @@
     // temporary fix
     transition-property: height, box-shadow, padding-bottom, color, background;
     .button {
+        // width: 56px;
+        // box-sizing: border-box;
+        height: 100%;
+        position: relative;
         padding: 8px;
         display: flex;
-        justify-content: flex-start;
+        flex-direction: column;
+        // align-items: flex-start;
+        // justify-content: flex-start;
         button {
+            height: 40px;
             position: relative;
             display: flex;
             align-items: center;
@@ -83,8 +91,13 @@
     }
 }
 .component.prominent {
-    .navbar {
+    > .content > .navbar {
         padding-bottom: 8px;
         height: 128px;
+    }
+}
+.component.transparent {
+    .navbar {
+        position: absolute;
     }
 }

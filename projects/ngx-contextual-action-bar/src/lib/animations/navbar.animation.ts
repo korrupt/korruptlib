@@ -3,7 +3,8 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 import * as easings from '../material/easings';
 import * as timings from '../material/timings';
 
-export const fixed = trigger('fixed', [
+export const navbarAnimation = trigger('navbar', [
+    state('transparent', style({ position: 'absolute' })),
     state('fixed',    style({ position: 'relative' })),
     state('visible',  style({ position: 'sticky' })),
     transition('fixed => visible', [

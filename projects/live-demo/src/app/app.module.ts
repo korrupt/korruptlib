@@ -12,6 +12,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatRippleModule } from '@angular/material/core';
+import { Route, RouterModule } from '@angular/router';
+import { RootComponent } from './views/root/root.component';
+import { TransparentComponent } from './views/transparent/transparent.component';
+
+const routes: Route[] = [
+  { path: '', component: RootComponent },
+  { path: 'transparent', component: TransparentComponent }
+]
 
 const MATERIAL_MODULES = [
     MatIconModule,
@@ -22,13 +30,16 @@ const MATERIAL_MODULES = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RootComponent,
+    TransparentComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ContextualActionBarModule,
-    ...MATERIAL_MODULES
+    ...MATERIAL_MODULES,
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
   ],
   providers: [],
   bootstrap: [AppComponent]

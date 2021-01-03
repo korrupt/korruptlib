@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-// import { ActionBarLayerRegistration } from 'dist/ngx-contextual-action-bar/lib/layer-registration';
-import { ActionBarLayerRegistration, ContextualActionBarService } from 'ngx-contextual-action-bar';
+import { ActionBarLayerRegistration, ContextualActionBarService, ActionBarLayerModes } from 'ngx-contextual-action-bar';
 
 @Component({
   selector: 'app-root',
@@ -10,23 +9,11 @@ import { ActionBarLayerRegistration, ContextualActionBarService } from 'ngx-cont
 export class AppComponent {
   title = 'live-demo';
 
-  layer: ActionBarLayerRegistration;
+  // layer: ActionBarLayerRegistration;
 
   constructor(
     private service: ContextualActionBarService
   ){
-    this.layer = service.register({
-      background: '#FFF',
-      color: '#000',
-      title: 'Live',
-      button: 'clear',
-      image: false,
-      actions: [
-        { icon: 'share', displayName: 'Del denne siden' }
-      ],
-      group: 'root',
-      mode: 'fixed',
-      prominent: true
-    })
+    
   }
 }
