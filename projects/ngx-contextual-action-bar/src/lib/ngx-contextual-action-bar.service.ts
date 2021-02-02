@@ -4,7 +4,8 @@ import { ActionBarLayer, ActionBarLayerModel, ActionBarLayerModes } from './mode
 import * as uuidv4 from 'uuid';
 import { ActionBarLayerRegistration, ActionBarLayerToggleRegistration } from './layer-registration';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, distinctUntilKeyChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { ComponentType } from '@angular/cdk/portal';
 
 const DEFAULT_LAYER_OPTIONS: Partial<ActionBarLayerModel> = {
   title: '',
@@ -28,7 +29,7 @@ export class ContextualActionBarService {
    * Internal property, use at own risk.
    */
   public readonly _layers: BehaviorSubject<ActionBarLayerModel[]> = new BehaviorSubject<ActionBarLayerModel[]>([]);
-  
+
   /**
    * Internal function used to retrieve most recent layer.
    * @param group - what group to target
@@ -40,7 +41,7 @@ export class ContextualActionBarService {
       //get latest layer
       map(layers => layers[layers.length - 1]),
       // dont react to other layers changing
-      distinctUntilChanged((a, b) => a?.id == b?.id)
+      // distinctUntilChanged((a, b) => a?.id == b?.id)
     );
   }
 
@@ -63,6 +64,9 @@ export class ContextualActionBarService {
   
   public buttonEmitter: EventEmitter<string> = new EventEmitter<string>();
   public actionEmitter: EventEmitter<[string, string]> = new EventEmitter<[string, string]>();
+  // public _customElementLoaded: EventEmitter<[string, ComponentType<any>]> = new EventEmitter<[string, ComponentType<any>]>();
+  public _customElement: BehaviorSubject<[string, ComponentType<any>] | undefined> = new BehaviorSubject<[string, ComponentType<any>] | undefined>(undefined)
+
 
   private applyMissingProperties(layer: ActionBarLayer): ActionBarLayerModel {
     const id = uuidv4.v4();

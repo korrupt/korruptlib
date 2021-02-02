@@ -1,3 +1,6 @@
+import { ComponentType } from "@angular/cdk/portal";
+import { Component } from "@angular/core";
+
 export interface ActionBarLayerAction {
     /** What icon to display. You can find codes at {@link https://material.io/resources/icons/}. */
     icon: string;
@@ -32,8 +35,13 @@ export interface ActionBarLayerModel {
     prominent: boolean;
     /** Will be overruled if background is set to 'transparent' */
     mode: ActionBarLayerModes;
+    /** Add a custom element between the actions  */
+    middleElement: ComponentType<any>;
 }
 
 type OptionalExceptFor<T, TRequired extends keyof T> = Partial<T> & Pick<T, TRequired>;
 
-export type ActionBarLayer = Omit<OptionalExceptFor<ActionBarLayerModel, 'color' | 'background'>, 'id'>
+type Omitted = 'id' | 'customElementInstance'
+
+export type ActionBarLayer = Omit<OptionalExceptFor<ActionBarLayerModel, 'color' | 'background'>, Omitted>
+

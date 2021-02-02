@@ -2,7 +2,7 @@
         <div class="button"
             *ngIf="(button$ | async); let button"
         >
-            <button mat-icon-button *ngIf="button[1]" (click)="handleButtonClick(layer.id)">
+            <button mat-icon-button *ngIf="button[1]" (click)="handleButtonClick(layer.id)" [@buttonAnimation]="button">
             <!-- <button mat-icon-button [@buttonAnimation]="button" (click)="handleButtonClick(layer.id)"> -->
                 <div class="wrapper">
                     <mat-icon class="old">{{button[0]}}</mat-icon>
@@ -10,10 +10,14 @@
                 </div>
             </button>
         </div>
-        <div class="title" *ngIf="layer?.title">
-            <h2>{{layer.title}}</h2>
+        <div class="title">
+            <div class="custom-element">
+                <div cdkPortalOutlet></div> 
+            </div>
+            <h2 *ngIf="layer?.title">{{layer.title}}</h2>
         </div>
-        <div class="actions">
+
+        <div class="actions" *ngIf="layer?.actions.length > 0">
             <ngx-actions-overflow-menu [group]="group"></ngx-actions-overflow-menu>
         </div>
 </ng-template>

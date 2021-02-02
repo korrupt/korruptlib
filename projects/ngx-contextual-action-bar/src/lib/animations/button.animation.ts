@@ -37,10 +37,11 @@ export const buttonAnimation = trigger('buttonAnimation', [
         group([
             query('.old', [
                 style({display: 'block'}),
-                animate(`${timings.small_enter} ${easings.accelerated}`, style({ opacity: 0, transform: 'rotate(180deg)' })),
+                animate(`150ms ${easings.accelerated}`, style({ opacity: 0, transform: 'rotate(180deg)' })),
+                // animate(`1s ${easings.accelerated}`, style({ opacity: 0, transform: 'rotate(180deg)' })),
             ]),
             query('.new', [
-                animate(`${timings.small_enter} ${easings.decelerated}`, style({ opacity: 1, transform: 'rotate(360deg)' }))
+                animate(`150ms ${easings.decelerated}`, style({ opacity: 1, transform: 'rotate(360deg)' }))
             ]),
         ])
     ]),

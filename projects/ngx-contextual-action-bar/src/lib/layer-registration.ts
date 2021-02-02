@@ -1,16 +1,38 @@
 import { ContextualActionBarService } from './ngx-contextual-action-bar.service';
 
 import { Observable } from 'rxjs';
-import { filter, map, mapTo } from 'rxjs/operators';
+import { filter, map, mapTo, take, tap } from 'rxjs/operators';
 import { ActionBarLayerModel, ActionBarLayer } from './model/action-bar-layer.model';
+import { ComponentType } from '@angular/cdk/portal';
 
-export class ActionBarLayerRegistration {
+export class ActionBarLayerRegistration<T = any> {
     constructor(
         private service: ContextualActionBarService,
         private _layer: ActionBarLayerModel,
     ){
         this.service._addLayer(_layer);
+        // this.service._customElementLoaded.subscribe((s) => {})
+        // this.onCustomElementReady.subscribe(s => console.log(s))
     }
+
+    public instance: T | undefined;
+
+    get onCustomElementReady(): Observable<any> {
+        return this.service._customElement.pipe(
+            filter((v) => v !== undefined),
+            filter((ev) => ev![0] === this._layer.id),
+            map(v => v![1])
+        )
+    }
+    // public onCustomElementReady: Observable<ComponentType<T>> = this.service._customElementLoaded.pipe(
+        // // filter(([id]) => id === this._layer.id),
+        // // take(1),
+        // tap(e => console.log('meme')),
+        // map(([,comp]) => {
+        //     this.instance = comp;
+        //     return comp;
+        // })
+    // )
 
     public get onButtonClick(): Observable<void> {
         return this.service.buttonEmitter.pipe(filter(id => id === this._layer.id), mapTo(undefined))

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ComponentRef, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { combineLatest, fromEvent, Observable, of } from 'rxjs';
 import { distinctUntilChanged, distinctUntilKeyChanged, map, pairwise, scan, startWith, switchMap } from "rxjs/operators";
 import { ActionBarLayerModel, ActionBarLayerModes } from './model/action-bar-layer.model';
@@ -7,6 +7,7 @@ import { buttonAnimation } from './animations/button.animation';
 import { navbarAnimation } from './animations/navbar.animation';
 import { paddingAnimation } from './animations/padding.animations';
 import { layerSwitchAnimation } from './animations/layer-switch.animation';
+import { CdkPortalOutlet, ComponentPortal, ComponentType } from '@angular/cdk/portal';
 
 @Component({
   selector: 'ngx-contextual-action-bar',
@@ -27,6 +28,7 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
 
   
   @ViewChild('c', { read: ElementRef, static: true }) content!: ElementRef<HTMLElement>;
+  @ViewChild(CdkPortalOutlet) outlet!: CdkPortalOutlet;
   
   public netScroll$!: Observable<number>;
   public scroll!: Observable<number>;
@@ -40,7 +42,7 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
   public shadow$!: Observable<boolean>;
   public contentState$!: Observable<'none' | 'regular' | 'prominent'>;
   public layerSwitchTrigger$!: Observable<string | undefined>;
-
+  public customElement$!: Observable<ComponentPortal<any> | undefined>;
 
   constructor(
     private service: ContextualActionBarService
@@ -51,8 +53,21 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
     this.service.buttonEmitter.emit(id);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.layer$ = this.service.latest(this.group);
+    this.layer$.pipe(
+      // distinctUntilChanged((a,b) => a?.id === b?.id)
+    )
+    .subscribe(layer => {
+      if (this.outlet?.hasAttached()) {
+        this.outlet.ngOnDestroy();
+        this.outlet.detach();
+      }
+      if (layer?.middleElement) {      
+        const ref = this.outlet.attachComponentPortal(new ComponentPortal(layer.middleElement))
+        this.service._customElement.next([layer.id, ref.instance]);
+      }
+    })
     this.layerSwitchTrigger$ = this.layer$.pipe(
       map(layer => layer?.id)
     )
@@ -77,7 +92,6 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
       map(layer => layer?.button),
       startWith(undefined),
       pairwise(),
-      // distinctUntilChanged(([a, b]) => a === b || a === undefined)
     )
 
     this.navbarState$ = combineLatest([this.scroll, this.netScroll$, this.layer$]).pipe(
@@ -122,7 +136,8 @@ export class ContextualActionBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    
+    // this.outlet.ngOnDestroy();
+    // this.outlet?.dispose();
   }
 
 }

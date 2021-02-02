@@ -15,31 +15,38 @@ import { MatRippleModule } from '@angular/material/core';
 import { Route, RouterModule } from '@angular/router';
 import { RootComponent } from './views/root/root.component';
 import { TransparentComponent } from './views/transparent/transparent.component';
+import { CustomElementComponent } from './views/custom-element/custom-element.component';
+import { SearchBarModule } from './shared/search-bar/search-bar.module';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Route[] = [
   { path: '', component: RootComponent },
-  { path: 'transparent', component: TransparentComponent }
+  { path: 'transparent', component: TransparentComponent },
+  { path: 'custom-element', component: CustomElementComponent }
 ]
 
 const MATERIAL_MODULES = [
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatRippleModule
+    MatRippleModule,
+    MatInputModule
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     RootComponent,
-    TransparentComponent
+    TransparentComponent,
+    CustomElementComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ContextualActionBarModule,
     ...MATERIAL_MODULES,
-    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
+    SearchBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

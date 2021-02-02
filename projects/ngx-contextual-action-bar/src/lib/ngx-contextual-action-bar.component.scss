@@ -65,23 +65,32 @@
         }
     }
     .title {
-        flex: 0 1 auto;
+        flex: 2 1 auto;
         display: flex;
         align-items: flex-end;
         padding-left: 16px;
         padding-right: 64px;
         padding-bottom: 10px;
+        position: relative;
         h2 {
             margin: 0;
         }
+        .custom-element {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 56px;
+            width: 100%;
+        }
     }
     .actions {
-        flex: 1 1 auto;
+        flex: 0.5 1 50px;
         height: 100%;
         position: relative;
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        min-width: 0;
         .ngx-actions-overflow-menu {
             flex: 0 0 56px;
         }
