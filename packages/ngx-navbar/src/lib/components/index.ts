@@ -1,1 +1,1 @@
-export * from './ngx-navbar-outlet/ngx-navbar-outlet.component';
+export * from './kngx-navbar-outlet/kngx-navbar-outlet.component';

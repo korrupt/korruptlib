@@ -2,7 +2,7 @@
   "name": "ngx-navbar",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/ngx-navbar/src",
-  "prefix": "lib",
+  "prefix": "kngx",
   "tags": [],
   "projectType": "library",
   "targets": {
