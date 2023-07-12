@@ -1,0 +1,50 @@
+{
+  "name": "ngx-navbar",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/ngx-navbar/src",
+  "prefix": "lib",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/ngx-navbar/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/ngx-navbar/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/ngx-navbar/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/ngx-navbar/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/ngx-navbar/**/*.ts",
+          "packages/ngx-navbar/**/*.html"
+        ]
+      }
+    }
+  }
+}
