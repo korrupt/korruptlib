@@ -27,11 +27,11 @@
     "@angular/cli": "~16.1.0",
     "@angular/compiler-cli": "~16.1.0",
     "@angular/language-service": "~16.1.0",
-    "@nx/angular": "^16.5.1",
-    "@nx/eslint-plugin": "16.5.1",
-    "@nx/jest": "16.5.1",
-    "@nx/js": "16.5.1",
-    "@nx/linter": "16.5.1",
+    "@nx/angular": "16.6.0",
+    "@nx/eslint-plugin": "16.6.0",
+    "@nx/jest": "16.6.0",
+    "@nx/js": "16.6.0",
+    "@nx/linter": "16.6.0",
     "@schematics/angular": "~16.1.0",
     "@types/jest": "^29.4.0",
     "@types/node": "16.11.7",
@@ -43,7 +43,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-preset-angular": "~13.1.0",
     "ng-packagr": "~16.1.0",
-    "nx": "16.5.1",
+    "nx": "16.6.0",
     "postcss": "^8.4.5",
     "postcss-import": "~14.1.0",
     "postcss-preset-env": "~7.5.0",
@@ -57,3 +57,4 @@
     "packages/*"
   ]
 }
+
