@@ -7,12 +7,10 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/angular:ng-packagr-lite",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "packages/kngx-navbar/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "project": "packages/kngx-navbar/ng-package.json"
       },
       "configurations": {
         "production": {

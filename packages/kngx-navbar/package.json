@@ -1,5 +1,5 @@
 {
-  "name": "kngx-navbar",
+  "name": "@korrupt/kngx-navbar",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^16.1.0",
@@ -9,5 +9,7 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "homepage": "https://github.com/korrupt/korruptlib",
+  "private": false
 }
