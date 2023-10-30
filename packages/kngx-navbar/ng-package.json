@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/packages/ngx-navbar",
+  "dest": "../../dist/packages/kngx-navbar",
   "lib": {
     "entryFile": "src/index.ts"
   }

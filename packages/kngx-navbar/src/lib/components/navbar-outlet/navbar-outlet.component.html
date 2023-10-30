@@ -1,0 +1,10 @@
+<nav class="kngx-navbar-outlet-component">
+  <button *ngIf="button$ | async as button">
+    <ng-content select="button"></ng-content>
+  </button>
+  <h2>
+    <ng-container *ngIf="title$ | async as title">
+      {{ title.value }}
+    </ng-container>
+  </h2>
+</nav>

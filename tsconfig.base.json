@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "ngx-navbar": ["packages/ngx-navbar/src/index.ts"]
+      "kngx-navbar": ["packages/kngx-navbar/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

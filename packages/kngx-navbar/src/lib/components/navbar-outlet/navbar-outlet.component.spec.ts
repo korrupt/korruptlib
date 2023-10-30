@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { KngxNavbarOutletComponent } from './kngx-navbar-outlet.component';
+import { KngxNavbarOutletComponent } from './navbar-outlet.component';
 
-describe('NgxNavbarOutletComponent', () => {
+describe('NgxKngxNavbarOutletComponent', () => {
   let component: KngxNavbarOutletComponent;
   let fixture: ComponentFixture<KngxNavbarOutletComponent>;
 

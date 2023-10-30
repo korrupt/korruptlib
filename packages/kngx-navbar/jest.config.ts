@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'ngx-navbar',
+  displayName: 'kngx-navbar',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/packages/ngx-navbar',
+  coverageDirectory: '../../coverage/packages/kngx-navbar',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

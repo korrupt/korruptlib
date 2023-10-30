@@ -1,1 +1,0 @@
-export * from './kngx-navbar-outlet/kngx-navbar-outlet.component';

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgxNavbarModule } from 'ngx-navbar';
+import { KngxNavbarModule } from 'kngx-navbar';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, NgxNavbarModule],
+  imports: [BrowserModule, KngxNavbarModule],
   providers: [],
   bootstrap: [AppComponent],
 })
