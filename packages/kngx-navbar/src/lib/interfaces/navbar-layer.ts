@@ -5,4 +5,8 @@ export type KngxNavbarLayer = {
   actions?: {
     action: string;
   }[];
+  theme?: {
+    color: string;
+    background: string;
+  }
 };

@@ -24,6 +24,10 @@ export class KngxNavbarService {
     latestProp('button')
   )
 
+  readonly theme$ = this.layers$.pipe(
+    latestProp('theme')
+  )
+
   public releaseLayer(id: number): void {
     this.layers.next(this.layers.value.filter((e) => e.id !== id));
   }

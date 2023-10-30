@@ -1,4 +1,7 @@
-<nav class="kngx-navbar-outlet-component">
+<nav class="kngx-navbar-outlet-component"
+  [style.color]="color$ | async"
+  [style.background]="background$ | async"
+>
   <div (click)="buttonClicked(button.id)" class="kngx-navbar-button" *ngIf="button$ | async as button">
     <ng-content select=".button"></ng-content>
   </div>
