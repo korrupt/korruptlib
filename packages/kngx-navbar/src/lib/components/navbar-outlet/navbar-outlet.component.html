@@ -1,5 +1,5 @@
 <nav class="kngx-navbar-outlet-component">
-  <div class="kngx-navbar-button" *ngIf="button$ | async as button">
+  <div (click)="buttonClicked(button.id)" class="kngx-navbar-button" *ngIf="button$ | async as button">
     <ng-content select=".button"></ng-content>
   </div>
   <div [class.center]="center" class="kngx-navbar-title" *ngIf="title$ | async as title">

@@ -27,6 +27,10 @@ export class KngxNavbarOutletComponent implements OnDestroy {
   @Input()
   center = true;
 
+  buttonClicked(id: number): void {
+    this.navbar.events.next({ type: 'BUTTON', id });
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
   }
