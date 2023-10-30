@@ -3,14 +3,16 @@ nav.kngx-navbar-outlet-component {
     display: flex;
     align-items: center;
     height: 64px;
+    box-sizing: border-box;
+    padding: 0 4px;
     h2 {
         margin: 0;
     }
 
     .kngx-navbar-title {
-        color: red;
-
         &.center {
+            pointer-events: none;
+            // top: 0;
             position: absolute;
             width: 100%;
             text-align: center;
