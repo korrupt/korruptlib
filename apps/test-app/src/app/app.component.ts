@@ -10,7 +10,11 @@ export class AppComponent {
   constructor(private navbar: KngxNavbarService) {}
 
   layer$ = this.navbar.registerNavbarLayer({
-    button: 'menu'
+    button: 'menu',
+    theme: {
+      color: 'red',
+      background: 'white'
+    }
   })
 
   buttonSub$ = this.layer$.buttonClicked.subscribe((s) => {
