@@ -13,5 +13,9 @@ export class AppComponent {
     button: 'menu'
   })
 
+  buttonSub$ = this.layer$.buttonClicked.subscribe((s) => {
+    console.log('button clicked');
+  });
+
   title = 'test-app';
 }
