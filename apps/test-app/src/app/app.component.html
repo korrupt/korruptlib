@@ -1,4 +1,10 @@
-<kngx-navbar-outlet></kngx-navbar-outlet>
+<kngx-navbar-outlet #o>
+    <button class="button" mat-icon-button *ngIf="o.button">
+        <mat-icon>{{ o.button }}</mat-icon>
+    </button>
+    <h2 class="title" *ngIf="o.title">{{o.title}}</h2>
+</kngx-navbar-outlet>
 <main>
-
+    {{ o.title }}
+    <router-outlet></router-outlet>
 </main>

@@ -6,7 +6,8 @@ import { ExtractActions, KngxNavbarLayer, KngxNavbarLayerActionEvent, KngxNavbar
 export class KngxNavbarLayerInstance<T extends KngxNavbarLayer> {
   constructor(
     readonly layer: T,
-    private readonly _eventsStream$: Observable<KngxNavbarLayerEvent<T>>
+    private readonly _eventsStream$: Observable<KngxNavbarLayerEvent<T>>,
+    readonly release: () => void,
   ) {}
 
   private readonly destroy$ = new Subject<void>();

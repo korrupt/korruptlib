@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@include mat.core();
+
+$primary: mat.define-palette(mat.$blue-palette, 500);
+$accent: mat.define-palette(mat.$yellow-palette, 500);
+$warn: mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-light-theme((
+    color: (
+        primary: $primary,
+        accent: $accent,
+        warn: $warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+));
+
+
+@include mat.core-theme($theme);
+@include mat.all-component-themes($theme);
+
+body, html {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+// @include mat.button-theme($theme);

@@ -2,8 +2,18 @@ nav.kngx-navbar-outlet-component {
     position: relative;
     display: flex;
     align-items: center;
-    height: 56px;
+    height: 64px;
     h2 {
         margin: 0;
+    }
+
+    .kngx-navbar-title {
+        color: red;
+
+        &.center {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
     }
 }

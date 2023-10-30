@@ -10,7 +10,6 @@ export class AppComponent {
   constructor(private navbar: KngxNavbarService) {}
 
   layer$ = this.navbar.registerNavbarLayer({
-    title: 'test',
     button: 'menu'
   })
 
